@@ -34,8 +34,8 @@ android {
 dependencies {
     implementation(project(":domain"))
 
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-android-compiler:2.48")
+    implementation("com.google.dagger:hilt-android:2.50")
+    kapt("com.google.dagger:hilt-android-compiler:2.50")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")

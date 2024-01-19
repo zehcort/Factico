@@ -7,6 +7,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,40 +30,64 @@ fun HomeScreen(
     viewModel: FactsViewModel = hiltViewModel()
 ) {
     val state = viewModel.state.value
+    val errorMessage = state.errorMessage
 
     if (state.isLoading) {
         LoadingIndicator()
     } else {
-        state.currentFact?.let { fact ->
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(color = getRandomColor())
-                    .padding(vertical = 16.dp)
-                    .clickable { viewModel.fetchRandomFact() },
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
-            ) {
+        if (errorMessage.isNullOrEmpty()) {
+            state.currentFact?.let { fact ->
                 Column(
                     modifier = Modifier
-                        .fillMaxWidth()
-                        .background(color = Color.Black)
-                        .padding(16.dp),
+                        .fillMaxSize()
+                        .background(color = getRandomColor())
+                        .padding(vertical = 16.dp)
+                        .clickable { viewModel.fetchRandomFact() },
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Text(
-                        text = fact.text,
-                        fontSize = 20.sp,
-                        textAlign = TextAlign.Center,
-                    )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(color = Color.Black)
+                            .padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = fact.text,
+                            fontSize = 20.sp,
+                            textAlign = TextAlign.Center,
+                        )
 
-                    Text(
-                        modifier = Modifier.padding(top = 16.dp),
-                        text = "Source: ${fact.source}",
-                        fontSize = 14.sp,
-                        textAlign = TextAlign.Center,
-                    )
+                        Text(
+                            modifier = Modifier.padding(top = 16.dp),
+                            text = "Source: ${fact.source}",
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Center,
+                        )
+                    }
+                }
+            }
+        } else {
+            Column(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(vertical = 16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
+            ) {
+                Text(
+                    text = errorMessage,
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center,
+                )
+
+                IconButton(
+                    modifier = Modifier.padding(top = 8.dp),
+                    onClick = viewModel::fetchRandomFact
+                ) {
+                    Icon(Icons.Filled.Refresh, contentDescription = "Refresh")
                 }
             }
         }
