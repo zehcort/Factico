@@ -58,6 +58,7 @@ fun HomeScreen(
                             text = fact.text,
                             fontSize = 20.sp,
                             textAlign = TextAlign.Center,
+                            color = Color.White
                         )
 
                         Text(
@@ -65,6 +66,7 @@ fun HomeScreen(
                             text = "Source: ${fact.source}",
                             fontSize = 14.sp,
                             textAlign = TextAlign.Center,
+                            color = Color.White
                         )
                     }
                 }
@@ -81,6 +83,7 @@ fun HomeScreen(
                     text = errorMessage,
                     fontSize = 20.sp,
                     textAlign = TextAlign.Center,
+                    color = Color.White
                 )
 
                 IconButton(
