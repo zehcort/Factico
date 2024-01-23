@@ -82,8 +82,7 @@ fun HomeScreen(
                 Text(
                     text = errorMessage,
                     fontSize = 20.sp,
-                    textAlign = TextAlign.Center,
-                    color = Color.White
+                    textAlign = TextAlign.Center
                 )
 
                 IconButton(
