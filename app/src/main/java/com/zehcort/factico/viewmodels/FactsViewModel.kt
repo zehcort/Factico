@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.zehcort.domain.usecases.GetRandomFact
 import com.zehcort.domain.utils.Resource
 import com.zehcort.factico.events.HomeEvents
-import com.zehcort.factico.states.FactsState
+import com.zehcort.factico.states.HomeUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,8 +16,8 @@ import javax.inject.Inject
 class FactsViewModel @Inject constructor(
     private val getRandomFact: GetRandomFact
 ) : ViewModel() {
-    private val _state = mutableStateOf(FactsState())
-    val state: State<FactsState> = _state
+    private val _state = mutableStateOf(HomeUiState())
+    val state: State<HomeUiState> = _state
 
     fun fetchRandomFact() {
         viewModelScope.launch {
